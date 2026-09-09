@@ -22,13 +22,13 @@
 		span-variable:					10%
 	);
 
-// Font.
+// Font.（苹果优先：拉丁走 -apple-system(SF)，中文走苹方/冬青；非苹果平台再回退）
 	$font: (
-		family:							('Source Sans Pro', Helvetica, sans-serif),
-		family-heading:					(Arial, Helvetica, sans-serif),
-		family-fixed:					('Courier New', monospace),
-		weight:							300,
-		weight-bold:					400,
+		family:							(-apple-system, BlinkMacSystemFont, 'Inter', 'SF Pro Display', 'SF Pro Text', 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif),
+		family-heading:					(-apple-system, BlinkMacSystemFont, 'Inter', 'SF Pro Display', 'SF Pro Text', 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif),
+		family-fixed:					('SF Mono', Menlo, Consolas, monospace),
+		weight:							400,
+		weight-bold:					600,
 		weight-heading:					700
 	);
 

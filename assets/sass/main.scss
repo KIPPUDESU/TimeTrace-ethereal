@@ -4,7 +4,8 @@
 @import 'libs/vendor';
 @import 'libs/breakpoints';
 @import 'fontawesome-all.min.css';
-@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,300i,400i");
+
+// 中文页面：字体走系统 CJK 栈（见 libs/_vars.scss 的 $font），不再引远程 Google Fonts。
 
 /*
 	Ethereal by HTML5 UP
@@ -130,3 +131,7 @@
 
 	@import 'layout/page-wrapper';
 	@import 'layout/wrapper';
+
+// Custom（本项目发布页专属修饰，放在最后以覆盖等特异性规则）.
+
+	@import 'components/custom';

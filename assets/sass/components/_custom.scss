@@ -1,0 +1,405 @@
+///
+/// 本项目发布页（时痕 · TimeTrace）专属修饰。
+/// 在 main.scss 末尾 @import，置于组件样式之后，用于覆盖同特异性的默认规则。
+///
+
+// 本地自托管的 Inter（近似苹果 SF），供 Windows 等非苹果平台回退使用。
+	@font-face {
+		font-family: 'Inter';
+		font-style: normal;
+		font-weight: 400;
+		font-display: swap;
+		src: url('../fonts/inter-latin-400-normal.woff2') format('woff2');
+	}
+	@font-face {
+		font-family: 'Inter';
+		font-style: normal;
+		font-weight: 600;
+		font-display: swap;
+		src: url('../fonts/inter-latin-600-normal.woff2') format('woff2');
+	}
+	@font-face {
+		font-family: 'Inter';
+		font-style: normal;
+		font-weight: 700;
+		font-display: swap;
+		src: url('../fonts/inter-latin-700-normal.woff2') format('woff2');
+	}
+
+// 图片按原始比例完整显示、不裁剪（用于真实 App 截图 / 图标，保证画面不被切掉）。
+	.image.tt-frame[data-position] img {
+		@include vendor('object-fit', 'contain');
+		object-position: center;
+	}
+
+// 画廊里的截图去掉滤镜叠加层，保持画面原样清晰。
+	.gallery .image.tt-frame {
+		&:after {
+			display: none;
+		}
+	}
+
+// Hero 右侧“详情页海报式”排版（复刻 App 详情页的蒙版 + 居中文字栈）。
+	.image.tt-poster {
+		overflow: hidden;
+
+		.tt-poster-inner {
+			@include vendor('display', 'flex');
+			@include vendor('flex-direction', 'column');
+			@include vendor('align-items', 'center');
+			@include vendor('justify-content', 'center');
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: 2;
+			padding: 1.25rem 1.5rem;
+			text-align: center;
+			pointer-events: none;
+			background: rgba(8, 10, 14, 0.42);
+		}
+
+		.tt-p-title {
+			color: rgba(255, 255, 255, 0.85);
+			font-family: _font(family);
+			font-size: 1rem;
+			font-weight: 300;
+			letter-spacing: 0.24em;
+			line-height: 1.9;
+			margin: 0 0 0.5rem 0;
+			text-indent: 0.24em;
+		}
+
+		.tt-p-days {
+			color: #ffffff;
+			font-family: _font(family-heading);
+			font-size: 5.25rem;
+			font-weight: 700;
+			line-height: 1.1;
+			margin: 0 0 0.6rem 0;
+		}
+
+		.tt-p-date {
+			color: rgba(255, 255, 255, 0.6);
+			font-family: _font(family);
+			font-size: 0.8rem;
+			font-weight: 400;
+			letter-spacing: 0.22em;
+			text-indent: 0.22em;
+			margin: 0;
+		}
+
+		.tt-p-time {
+			color: rgba(255, 255, 255, 0.8);
+			font-family: _font(family);
+			font-size: 0.9rem;
+			font-weight: 400;
+			letter-spacing: 0.3em;
+			text-indent: 0.3em;
+			font-variant-numeric: tabular-nums;
+			margin: 0.7rem 0 0 0;
+		}
+	}
+
+// 品牌下载按钮（Android / iOS）的平台图标放大。
+	.actions .button.icon.brands:before {
+		font-size: 1.35rem;
+	}
+
+// Android / iOS 下载按钮去掉圆角（方形）。
+	.button.primary.icon.brands {
+		border-radius: 0;
+	}
+
+// 大标题上方的短小标签行（引导句）。
+	.tt-kicker {
+		color: _palette(fg-light);
+		font-family: _font(family-heading);
+		font-size: 0.65rem;
+		font-weight: _font(weight-heading);
+		letter-spacing: 0.2rem;
+		margin: 0 0 1.25rem 0;
+		text-transform: uppercase;
+	}
+
+// 主标题下的小号英文品牌名（如「时痕」下方的 TimeTrace）。
+	.tt-en {
+		display: block;
+		margin-top: 0.75rem;
+		font-family: _font(family-heading);
+		font-size: 0.42em;
+		font-weight: 400;
+		letter-spacing: 0.08em;
+		opacity: 0.72;
+	}
+
+// Hero 的行动按钮（Android / iOS + 圆形箭头）垂直居中对齐。
+	.banner .actions {
+		@include vendor('align-items', 'center');
+	}
+
+// 只把「查看特性」圆形箭头按钮单独往下微调（其余按钮不动）。
+	.banner .actions .button.circle {
+		@include vendor('transform', 'translateY(4px)');
+	}
+
+// 右上角语言切换器（中 / 英 / 日）。
+	.tt-lang {
+		@include vendor('display', 'flex');
+		@include vendor('align-items', 'center');
+		gap: 2px;
+		position: fixed;
+		top: 1rem;
+		right: 1rem;
+		z-index: 9000;
+		background: rgba(14, 16, 20, 0.55);
+		border-radius: 999px;
+		padding: 0.2rem;
+		-webkit-backdrop-filter: blur(6px);
+		backdrop-filter: blur(6px);
+		box-shadow: 0 0.25rem 1rem rgba(0, 0, 0, 0.15);
+
+		.tt-lang-btn {
+			@include vendor('appearance', 'none');
+			border: 0;
+			background: transparent;
+			color: rgba(255, 255, 255, 0.72);
+			font-family: _font(family-heading);
+			font-size: 0.7rem;
+			font-weight: _font(weight-heading);
+			letter-spacing: 0.06em;
+			line-height: 1;
+			padding: 0.45rem 0.8rem;
+			border-radius: 999px;
+			cursor: pointer;
+			@include vendor('transition', (
+				'background-color 0.2s ease',
+				'color 0.2s ease'
+			));
+
+			&:hover {
+				color: #ffffff;
+			}
+
+			&.active {
+				background: #ffffff;
+				color: #14161a !important; /* 模板给 button 的白色 !important 需要顶掉，保证对比 */
+			}
+		}
+	}
+
+// 英文 / 日文主标题（拉丁大标题「TimeTrace」）拉开字距，避免挤在一起。
+	html[lang="en"] .banner h1.major,
+	html[lang="ja"] .banner h1.major {
+		letter-spacing: 0.06em;
+	}
+
+// 苹果风格字体平滑。
+	body {
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+	}
+
+// 语言选择改为“抽屉”：默认只显示当前语言（右侧单粒），点击展开，选中后回收。
+// 用 max-width / opacity 做平滑滑出动画（display 无法过渡）。
+	.tt-lang .tt-lang-btn {
+		max-width: 12em;
+		opacity: 1;
+		white-space: nowrap;
+		overflow: hidden;
+		@include vendor('transition', (
+			'max-width 0.22s ease',
+			'opacity 0.22s ease',
+			'padding-left 0.22s ease',
+			'padding-right 0.22s ease'
+		));
+	}
+
+	.tt-lang:not(.open) {
+		gap: 0;
+	}
+
+	.tt-lang:not(.open) .tt-lang-btn:not(.active) {
+		max-width: 0;
+		opacity: 0;
+		padding-left: 0;
+		padding-right: 0;
+		pointer-events: none;
+	}
+
+// 联系面板：左侧图片叠一层页面色调的半透明渐变遮罩。
+	.image.tt-mask {
+		@include vendor('flex-grow', '0');
+		@include vendor('flex-shrink', '0');
+		width: 26rem;
+		overflow: hidden;
+
+		&:after {
+			content: '';
+			display: block;
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			pointer-events: none;
+			z-index: 1;
+			background-image: linear-gradient(115deg, rgba(120, 153, 204, 0.32) 0%, rgba(34, 37, 42, 0.58) 92%);
+		}
+	}
+
+// “保持联系 + 链接列表”合并为一张渐变卡片：放在图片右侧，内部保留两栏（标题栏 + 链接栏），
+// 横向几何与合并前基本一致（图片 span-8 不动）。
+	.tt-contact-card {
+		@include vendor('display', 'flex');
+		@include vendor('align-items', 'center');
+		@include vendor('flex-grow', '0');
+		@include vendor('flex-shrink', '0');
+		background-image: linear-gradient(150deg, #7899cc 0%, #5b7296 46%, #22252a 100%);
+	}
+
+	.tt-cc-main {
+		width: 22rem;
+		padding: 3.5rem;
+		flex-shrink: 0;
+
+		h2.major {
+			margin-bottom: 1.75rem;
+		}
+
+		> p {
+			margin: 0;
+		}
+	}
+
+	.tt-cc-links {
+		padding: 3.5rem 3.5rem 3.5rem 0;
+		flex-shrink: 0;
+
+		ul.contact-icons {
+			margin: 0;
+		}
+	}
+
+// 下滑提示箭头：桌面隐藏，仅移动端显示。
+	.tt-scroll-hint {
+		display: none;
+	}
+
+	@include keyframes('tt-scroll-bounce') {
+		0%, 100% {
+			@include vendor('transform', 'rotate(45deg) translate(0, 0)');
+			opacity: 0.35;
+		}
+		50% {
+			@include vendor('transform', 'rotate(45deg) translate(0, 4px)');
+			opacity: 0.95;
+		}
+	}
+
+// ---------- 移动端响应式：保证卡片无论多高/多宽都完整显示、不裁切 ----------
+	@include breakpoint('<=small') {
+		// 面板内容允许按内容生长、换行，不被固定高度/宽度裁掉。
+		.panel {
+			overflow: visible;
+		}
+
+		// Hero：移动端把海报图铺满整个首屏作背景，计时文字叠图居中，底部放下滑提示。
+		.image.tt-poster {
+			position: relative;
+			width: 100% !important;
+			max-width: none;
+			margin: 0;
+			height: 100vh !important;
+			min-height: 36rem;
+			overflow: hidden;
+		}
+
+		.image.tt-poster img {
+			position: absolute !important;
+			top: 0;
+			left: 0;
+			width: 100% !important;
+			height: 100% !important;
+			object-fit: cover;
+		}
+
+		.image.tt-poster .tt-poster-inner {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			padding: 1.5rem;
+			background: rgba(8, 10, 14, 0.42);
+		}
+
+		// 整屏海报的字号略微放大。
+		.image.tt-poster .tt-p-title {
+			font-size: 1rem;
+		}
+
+		.image.tt-poster .tt-p-days {
+			font-size: 5rem;
+		}
+
+		.image.tt-poster .tt-p-date {
+			font-size: 0.85rem;
+		}
+
+		.image.tt-poster .tt-p-time {
+			font-size: 0.95rem;
+		}
+
+		// 向下滑动的提示箭头。
+		.tt-scroll-hint {
+			display: block;
+			position: absolute;
+			bottom: 1.25rem;
+			left: 50%;
+			width: 1.1rem;
+			height: 1.1rem;
+			margin-left: -0.55rem;
+			border-right: 2px solid rgba(255, 255, 255, 0.9);
+			border-bottom: 2px solid rgba(255, 255, 255, 0.9);
+			transform: rotate(45deg);
+			pointer-events: none;
+			animation: tt-scroll-bounce 1.8s ease-in-out infinite;
+		}
+
+		// 联系面板：左图与渐变卡片纵向堆叠；图片宽度保持与 PC 一致（26rem），居中完整显示。
+		.image.tt-mask {
+			width: 26rem !important;
+			max-width: 100%;
+			margin: 0 auto;
+			height: auto !important;
+			flex-basis: auto;
+		}
+
+		.image.tt-mask img {
+			position: static !important;
+			width: 100% !important;
+			height: auto !important;
+			object-fit: contain;
+		}
+
+		.image.tt-mask:after {
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+		}
+
+		.tt-contact-card {
+			@include vendor('flex-direction', 'column');
+			width: 100% !important;
+			height: auto;
+		}
+
+		.tt-cc-main,
+		.tt-cc-links {
+			width: 100% !important;
+			padding: 2rem;
+		}
+	}
