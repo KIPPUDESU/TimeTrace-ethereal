@@ -3492,29 +3492,39 @@ body {
     background: rgba(8, 10, 14, 0.42);
   }
   .image.tt-poster .tt-p-title {
-    font-size: 1rem;
+    font-size: 1.25rem;
+    letter-spacing: 0.2em;
+    text-indent: 0.2em;
+    margin: 0 0 0.6rem 0;
   }
   .image.tt-poster .tt-p-days {
-    font-size: 5rem;
+    font-size: 6.5rem;
+    margin: 0 0 0.7rem 0;
   }
   .image.tt-poster .tt-p-date {
-    font-size: 0.85rem;
+    font-size: 1.05rem;
+    letter-spacing: 0.18em;
+    text-indent: 0.18em;
   }
   .image.tt-poster .tt-p-time {
-    font-size: 0.95rem;
+    font-size: 1.2rem;
+    letter-spacing: 0.26em;
+    text-indent: 0.26em;
+    margin: 0.9rem 0 0 0;
   }
   .tt-scroll-hint {
     display: block;
     position: absolute;
-    bottom: 1.25rem;
+    bottom: 1.5rem;
     left: 50%;
-    width: 1.1rem;
-    height: 1.1rem;
-    margin-left: -0.55rem;
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-left: -0.625rem;
     border-right: 2px solid rgba(255, 255, 255, 0.9);
     border-bottom: 2px solid rgba(255, 255, 255, 0.9);
     transform: rotate(45deg);
-    pointer-events: none;
+    pointer-events: auto;
+    cursor: pointer;
     animation: tt-scroll-bounce 1.8s ease-in-out infinite;
   }
   .image.tt-mask {

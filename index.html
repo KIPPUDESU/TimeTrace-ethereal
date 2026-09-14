@@ -224,6 +224,60 @@
 			tickClock();
 			setInterval(tickClock, 1000);
 		})();
+
+		// 移动端首屏“翻页”吸附：上滑超过阈值后，直接滚动到第一页海报图片完全移出屏幕的位置；
+		// 点击海报底部的下滑提示触发同样的效果。（仅 ≤736px 移动端生效，桌面端为横向滚动，不参与）
+		(function ($) {
+			if (!window.matchMedia('(max-width: 736px)').matches) return;
+
+			// 目标滚动位置：海报图片底边对齐视口顶边，即“第一页图片完全不显示”。
+			function posterBottomTop() {
+				var poster = document.querySelector('.image.tt-poster');
+				if (!poster) return null;
+				var rect = poster.getBoundingClientRect();
+				return rect.top + window.pageYOffset + rect.height;
+			}
+			function jump() {
+				var top = posterBottomTop();
+				// 海报已完全移出（或没有海报）时不再跳转。
+				if (top === null || top <= window.pageYOffset) return;
+				$('html, body').stop().animate({ scrollTop: top }, 480, 'swing');
+			}
+
+			// 点击下滑提示 → 跳转。
+			var hint = document.querySelector('.tt-scroll-hint');
+			if (hint) hint.addEventListener('click', function (e) {
+				e.preventDefault();
+				jump();
+			});
+
+			// 上滑手势：累计本次触摸里向上的滑动距离。
+			var startY = null, movedUp = 0;
+			document.addEventListener('touchstart', function (e) {
+				var t = e.changedTouches[0];
+				startY = t.clientY;
+				movedUp = 0;
+			}, { passive: true });
+			document.addEventListener('touchmove', function (e) {
+				if (startY === null) return;
+				var dy = startY - e.changedTouches[0].clientY;
+				if (dy > movedUp) movedUp = dy;
+			}, { passive: true });
+			document.addEventListener('touchend', function () {
+				if (startY === null) return;
+				var poster = document.querySelector('.image.tt-poster');
+				if (poster) {
+					var rect = poster.getBoundingClientRect();
+					// 只在海报仍部分停留在屏幕内、且上滑距离达到阈值时触发。
+					var threshold = Math.max(48, Math.round(window.innerHeight * 0.06));
+					if (rect.bottom > 0 && rect.top < window.innerHeight && movedUp >= threshold) {
+						jump();
+					}
+				}
+				startY = null;
+				movedUp = 0;
+			}, { passive: true });
+		})(jQuery);
 	</script>
 
 </body>
